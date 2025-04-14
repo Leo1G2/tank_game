@@ -11,14 +11,14 @@ class Particle:
         self.y = y
         self.color = color
         self.radius = random.uniform(2, 5)
-        self.lifetime = random.uniform(0.5, 2.0) * 60  # en frames
+        self.lifetime = random.uniform(0.5, 2.0) * 60  
         self.current_life = self.lifetime
         self.velocity = [random.uniform(-2, 2), random.uniform(-2, 2)]
     
     def update(self):
         self.x += self.velocity[0]
         self.y += self.velocity[1]
-        self.velocity[1] += 0.05  # Gravité
+        self.velocity[1] += 0.05  
         self.current_life -= 1
         self.radius *= 0.99
         return self.current_life > 0
@@ -32,27 +32,25 @@ def run_endgame(screen):
     background_color = (20, 20, 50)
     clock = pygame.time.Clock()
     
-    # Polices
+  
     font_title = pygame.font.SysFont("Arial", 60, bold=True)
     font_subtitle = pygame.font.SysFont("Arial", 32)
     font_button = pygame.font.SysFont("Arial", 30)
     
-    # Couleurs des joueurs
-    tank1_color = (0, 255, 0)  # Vert
-    tank2_color = (0, 0, 255)  # Bleu
+    #couleur des joueurs
+    tank1_color = (0, 255, 0) 
+    tank2_color = (0, 0, 255)  
     
-    # Créer des boutons
+    
     replay_button = pygame.Rect(250, 350, 150, 50)
     menu_button = pygame.Rect(450, 350, 150, 50)
     
-    # État des boutons
     replay_hover = False
     menu_hover = False
     
-    # Particules
     particles = []
     
-    # Animation du titre
+    # titre animé
     title_scale = 0
     title_max_scale = 1.0
     
@@ -74,11 +72,11 @@ def run_endgame(screen):
                 elif event.key == pygame.K_SPACE:
                     return STATE_GAME
         
-        # Animation du titre
+     
         if title_scale < title_max_scale:
             title_scale += 0.05
         
-        # Créer de nouvelles particules aléatoirement
+       
         if random.random() < 0.3:
             x = random.randint(100, 700)
             y = random.randint(100, 500)
@@ -89,32 +87,31 @@ def run_endgame(screen):
             ])
             particles.append(Particle(x, y, color_choice))
         
-        # Mise à jour des particules
         particles = [p for p in particles if p.update()]
         
-        # Vérifier si la souris est sur les boutons
+        
         replay_hover = replay_button.collidepoint(mouse_pos)
         menu_hover = menu_button.collidepoint(mouse_pos)
         
-        # Gérer les clics de boutons
+    
         if replay_hover and mouse_clicked:
             return STATE_GAME
         if menu_hover and mouse_clicked:
             return STATE_MENU
         
-        # Vérifier les touches
+        
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RETURN]:
             return STATE_MENU
         
-        # Dessiner l'écran
+        
         screen.fill(background_color)
         
-        # Dessiner les particules en arrière-plan
+   
         for particle in particles:
             particle.draw(screen)
         
-        # Titre avec animation
+      
         scaled_font_size = int(60 * title_scale)
         if scaled_font_size > 0:
             font_title_scaled = pygame.font.SysFont("Arial", scaled_font_size, bold=True)
@@ -128,13 +125,13 @@ def run_endgame(screen):
             screen.blit(title_shadow, shadow_rect)
             screen.blit(title_surface, title_rect)
         
-        # Sous-titre
-        subtitle_text = "QUI SERA LE PROCHAIN VAINQUEUR ?"
+    
+        subtitle_text = "QUI SERA LE PROCHAIN VAINQUEUR DE LA GUERRE ?"
         subtitle = font_subtitle.render(subtitle_text, True, (200, 200, 200))
         subtitle_rect = subtitle.get_rect(center=(400, 200))
         screen.blit(subtitle, subtitle_rect)
         
-        # Dessiner les boutons
+  
         replay_color = (100, 200, 100) if replay_hover else (50, 150, 50)
         menu_color = (100, 100, 200) if menu_hover else (50, 50, 150)
         
@@ -150,7 +147,6 @@ def run_endgame(screen):
         menu_rect = menu_text.get_rect(center=menu_button.center)
         screen.blit(menu_text, menu_rect)
         
-        # Afficher un texte d'aide en bas de l'écran
         help_text = font_subtitle.render("Appuyez sur ENTRÉE pour le menu ou ESPACE pour rejouer", True, (150, 150, 150))
         help_rect = help_text.get_rect(center=(400, 500))
         screen.blit(help_text, help_rect)

@@ -6,7 +6,6 @@ from screens.options import run_options
 from screens.instructions import run_instructions
 from screens.endgame import run_endgame
 
-# Définir des constantes d'état
 STATE_MENU = 'menu'
 STATE_GAME = 'game'
 STATE_OPTIONS = 'options'
@@ -16,10 +15,10 @@ STATE_ENDGAME = 'endgame'
 def main():
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption("Tank Duel")
+    pygame.display.set_caption("Israël vs Palestine")
     clock = pygame.time.Clock()
     
-    state = STATE_MENU  # État initial
+    state = STATE_MENU  #
     
     while True:
         for event in pygame.event.get():
@@ -27,7 +26,7 @@ def main():
                 pygame.quit()
                 sys.exit()
                 
-        # Navigation entre les écrans en fonction de l'état courant
+        #pr bouger entre les écrans
         if state == STATE_MENU:
             state = run_menu(screen)
         elif state == STATE_GAME:
