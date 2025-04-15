@@ -14,26 +14,26 @@ class Tank:
     def __init__(self, x, y, angle=0, color=(0, 255, 0)):
         self.x = x
         self.y = y
-        self.angle = angle  # en degrés
-        self.speed = 2.0  # vitesse de déplacement
-        self.rotation_speed = 3.0  # vitesse de rotation
+        self.angle = angle
+        self.speed = 2.0  
+        self.rotation_speed = 3.0  
         self.hp = 100
         self.fire_power = 10
-        self.fire_delay = 500  # en millisecondes
+        self.fire_delay = 500 
         self.last_shot = pygame.time.get_ticks()
         self.color = color
         self.radius = 20
 
     def draw(self, surface):
-        # Dessiner le tank
+        
         pygame.draw.circle(surface, self.color, (int(self.x), int(self.y)), self.radius)
         end_x = self.x + self.radius * math.cos(math.radians(self.angle))
         end_y = self.y - self.radius * math.sin(math.radians(self.angle))
         pygame.draw.line(surface, (255, 255, 255), (self.x, self.y), (end_x, end_y), 2)
 
-        # Affichage de la barre de vie
-        pygame.draw.rect(surface, (255, 0, 0), (self.x - 20, self.y - 40, 100, 8))  # Barre rouge
-        pygame.draw.rect(surface, (0, 255, 0), (self.x - 20, self.y - 40, self.hp, 8))  # Barre verte
+
+        pygame.draw.rect(surface, (255, 0, 0), (self.x - 20, self.y - 40, 100, 8))  
+        pygame.draw.rect(surface, (0, 255, 0), (self.x - 20, self.y - 40, self.hp, 8))  
 
     def update(self, keys, forward_key, left_key, right_key):
         if keys[left_key]:
@@ -66,7 +66,7 @@ class Projectile:
         self.speed = 5.0
         self.power = power
         self.radius = 5
-        self.owner = owner  # Tank qui a tiré
+        self.owner = owner  
 
     def update(self):
         self.x += self.speed * math.cos(math.radians(self.angle))
